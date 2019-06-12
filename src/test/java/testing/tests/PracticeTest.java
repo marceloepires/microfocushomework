@@ -1,10 +1,10 @@
 package testing.tests;
 
-import com.testing.config.BaseClass;
-import com.testing.config.CaptureScreenShot;
-import com.testing.pages.LoginPage;
-import com.testing.pages.PracticePage;
 import org.testng.annotations.Test;
+import testing.config.BaseClass;
+import testing.config.CaptureScreenShot;
+import testing.pages.LoginPage;
+import testing.pages.PracticePage;
 
 import java.io.IOException;
 
