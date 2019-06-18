@@ -6,16 +6,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class LoginPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    @FindBy(css="#user_email")
-    private WebElement userEmail;
+    @FindBy(id="userid")
+    private WebElement userId;
 
-    @FindBy(css="input[name='user[password]']")
-    private  WebElement userPassword;
+    @FindBy(id="InLineCreateAnAccount")
+    private WebElement createAccount;
+
+    @FindBy(id="pass")
+    private WebElement pass;
+
+    @FindBy(id="sgnBt")
+    private WebElement signInButton;
+
+    @FindBy(id="errf")
+    private WebElement errorMessage;
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -23,13 +33,27 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void enterUserEmail(String email){
-        wait.until(ExpectedConditions.visibilityOf(userEmail));
-        userEmail.sendKeys(email);
+    public void enterUserId(String email){
+        userId.sendKeys(email);
     }
 
-    public void enterPassword(String pass){
-        userPassword.sendKeys(pass);
+    public void enterPass(String password){
+        wait.until(ExpectedConditions.visibilityOf(pass));
+        pass.sendKeys(password);
+    }
+
+    public void clickSignInButton(){
+        signInButton.click();
+    }
+
+    public void clickCreateAccount(){
+        createAccount.click();
+    }
+
+    public void validateErrorMessage(String error){
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        String errorCaptured = errorMessage.getText();
+        Assert.assertEquals(error,errorCaptured);
     }
 
 

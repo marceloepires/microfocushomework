@@ -14,22 +14,14 @@ public class InitialPage {
     @FindBy(linkText="Sign in")
     private WebElement signIn;
 
-    @FindBy(css="input[name='user[password]']")
-    private  WebElement userPassword;
-
     public InitialPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
-
     public void goToSignInPage(){
         signIn.click();
     }
 
-
-    public void enterPassword(String pass){
-        userPassword.sendKeys(pass);
-    }
 }
