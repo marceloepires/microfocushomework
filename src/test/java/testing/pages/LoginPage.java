@@ -43,18 +43,23 @@ public class LoginPage {
     }
 
     public void clickSignInButton(){
+        wait.until(ExpectedConditions.visibilityOf(signInButton));
         signInButton.click();
     }
 
     public void clickCreateAccount(){
+        wait.until(ExpectedConditions.visibilityOf(createAccount));
         createAccount.click();
     }
 
     public void validateErrorMessage(String error){
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         String errorCaptured = errorMessage.getText();
-        Assert.assertEquals(error,errorCaptured);
+        try {
+            Assert.assertEquals(error,errorCaptured);
+        } catch(Throwable t) {
+            org.testng.Assert.fail("The error message is different than expected!");
+        }
+
     }
-
-
 }

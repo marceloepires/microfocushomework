@@ -5,16 +5,23 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class BaseClass {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected InputStream in;
+    protected Properties prop;
 
-    @BeforeTest
+    @BeforeClass
     @Parameters("browser")
     public void beforeTest(String browser){
         System.out.println("browser choice is: " + browser);
@@ -33,12 +40,25 @@ public class BaseClass {
             default:
                 System.out.println("Wrong browser choice please check the possible options on BaseClass");
         }
+        try {
+            in = new FileInputStream("./src/test/java/testing/config/data.properties");
+            prop = new Properties();
+            prop.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         wait = new WebDriverWait(driver, 20);
         driver.manage().window().maximize();
     }
 
-    @AfterTest
+    @AfterClass
     public void afterTest(){
         driver.quit();
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
